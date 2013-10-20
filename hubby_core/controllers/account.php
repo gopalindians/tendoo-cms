@@ -41,10 +41,7 @@ class Account
 	public function index()
 	{
 		$this->hubby->setTitle('Mon profil');
-		$this->hubby->setDescription('Mon profil');
-		
-		$this->data['foot']			=	$this->load->view('account/footer',$this->data,true);
-		$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
+		$this->hubby->setDescription('Mon profil');$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
 		$this->data['body']			=	$this->load->view('account/profile/body',$this->data,true);
 		
 		$this->load->view('account/header',$this->data);
@@ -70,10 +67,7 @@ class Account
 			$this->core->users_global->setUserElement('TOWN', $this->core->input->post('user_town'));
 		}
 		$this->hubby->setTitle('Mettre mon profil &agrave; jour');
-		$this->hubby->setDescription('Mettre mon profil &agrave; jour');
-		
-		$this->data['foot']			=	$this->load->view('account/footer',$this->data,true);
-		$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
+		$this->hubby->setDescription('Mettre mon profil &agrave; jour');$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
 		$this->data['body']			=	$this->load->view('account/update_prof/body',$this->data,true);
 		
 		$this->load->view('account/header',$this->data);
@@ -119,10 +113,7 @@ class Account
 			$this->hubby->setDescription('Hubby Users Account');
 			$this->data['ttMessage']	=	$this->core->users_global->countMessage();
 			$this->data['paginate']		=	$this->core->hubby->paginate(30,$this->data['ttMessage'],1,'ClasseOn','ClasseOff',$start,$this->core->url->site_url(array('account','messaging','home')).'/',null);
-			$this->data['getMessage']	=	$this->core->users_global->getMessage($this->data['paginate'][1],$this->data['paginate'][2]);
-			
-			$this->data['foot']			=	$this->load->view('account/footer',$this->data,true);
-			$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
+			$this->data['getMessage']	=	$this->core->users_global->getMessage($this->data['paginate'][1],$this->data['paginate'][2]);$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
 			$this->data['body']			=	$this->load->view('account/messaging/body',$this->data,true);
 			
 			$this->load->view('account/header',$this->data);
@@ -150,10 +141,7 @@ class Account
 			}
 			
 			$this->hubby->setTitle('Messagerie');
-			$this->hubby->setDescription('Hubby Users Account');
-			
-			$this->data['foot']			=	$this->load->view('account/footer',$this->data,true);
-			$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
+			$this->hubby->setDescription('Hubby Users Account');$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
 			$this->data['body']			=	$this->load->view('account/messaging/write',$this->data,true);
 			
 			$this->load->view('account/header',$this->data);
@@ -187,10 +175,7 @@ class Account
 			$this->data['getMsgContent']=	$this->core->users_global->getMsgContent($start,$this->data['paginate'][1],$this->data['paginate'][2]);
 			
 			$this->hubby->setTitle('Messagerie &raquo; Lecture');
-			$this->hubby->setDescription('Hubby Users Account');
-			
-			$this->data['foot']			=	$this->load->view('account/footer',$this->data,true);
-			$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
+			$this->hubby->setDescription('Hubby Users Account');$this->data['lmenu']		=	$this->load->view('account/left_menu',$this->data,true);
 			$this->data['body']			=	$this->load->view('account/messaging/read',$this->data,true);
 			
 			$this->load->view('account/header',$this->data);
