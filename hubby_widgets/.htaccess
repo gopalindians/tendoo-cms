@@ -1,0 +1,4 @@
+Options -Indexes
+RewriteEngine on
+RewriteCond $1 !^(index\.php/index|hubby_assets/|hubby_core/|hubby_modules/|hubby_themes/|robots\.txt)
+RewriteRule ^(.*)$ index.php/$1 [L]
