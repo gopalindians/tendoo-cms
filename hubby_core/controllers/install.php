@@ -107,7 +107,10 @@ class Install
 					$this->core->form_validation->set_rules('site_name','Nom de l\'hôte','trim|required|min_length[4]');
 					if($this->core->form_validation->run())
 					{
-						$this->core->hubby->createTables();
+						if(!$this->core->hubby->createTables())
+						{
+							$this->core->url->redirect('error','code','tableCreationFailed'); // Table creation failed, redirect so
+						}
 						if($this->core->hubby->setOptions($this->core->input->post('site_name')))
 						{
 							$_SESSION['secur_access'] = 4;

@@ -46,7 +46,10 @@ class Hubby
 		  `MODULE_NAMESPACE` varchar(200) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB';	
-		$this->core->db->query($sql);	
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};	
 		
 		/* CREATE hubby_controllers */
 		$sql = 
@@ -61,7 +64,10 @@ class Hubby
 		  `PAGE_VISIBLE` varchar(5) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		/* CREATE hubby_modules */
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_modules` (
@@ -81,7 +87,10 @@ class Hubby
 		  `ENCRYPTED_DIR` text,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		/* CREATE hubby_options */
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_options` (
@@ -94,7 +103,10 @@ class Hubby
 		  `SHOW_WELCOME` varchar(10) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		/* CREATE hubby_themes */
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_themes` (
@@ -108,7 +120,10 @@ class Hubby
 		  `ENCRYPTED_DIR` text NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		/* CREATE hubby_widgets */
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_widgets` (
@@ -124,7 +139,10 @@ class Hubby
 		  `PRIORITY` int(11) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		/* CREATE hubby_widgets */
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_users` (
@@ -144,7 +162,10 @@ class Hubby
 		  `ACTIVE` varchar(100) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		/// MESSAGING TABLE create `hubby_users_messaging_content`
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_users_messaging_content` (
@@ -155,7 +176,10 @@ class Hubby
 		  `DATE` datetime NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		
 		/// ADMIN PRIVILEGE TABLE create  `hubby_admin_privileges`
 		$sql = 
@@ -168,7 +192,10 @@ class Hubby
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;
 		;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		/// ADMIN PRIVILEGE TABLE create  `hubby_privileges_actions`
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_privileges_actions` (
@@ -179,7 +206,10 @@ class Hubby
 		  `REF_PRIVILEGE` varchar(11) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		// Create `hubby_modules_actions`
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_modules_actions` (
@@ -190,7 +220,10 @@ class Hubby
 		  `ACTION_DESCRIPTION` varchar(200) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		// Create `hubby_modules_actions`
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_users_messaging_title` (
@@ -201,7 +234,10 @@ class Hubby
 		  `STATE` int(11) NOT NULL,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
-		$this->core->db->query($sql);
+		if(!$this->core->db->query($sql))
+		{
+			return false;
+		};
 		
 		return true;
 	}
@@ -260,7 +296,7 @@ class Hubby
 		$config['dbcollat'] = "utf8_general_ci";
 		$config['autoinit'] = TRUE;
 		$config['stricton'] = FALSE;
-		$this->core->db	=	DB($config,TRUE);
+		$this->core->db		=	DB($config,TRUE);
 		$this->connexion_status	=	$this->core->db->initialize();
 		if($this->connexion_status === TRUE)
 		{
@@ -272,6 +308,7 @@ class Hubby
 	}
 	public function setOptions($name)
 	{
+		var_dump($this->core);
 		$q = $this->core->db->get('hubby_options');
 		$r = $q->result();
 		if(count($r) == 1)

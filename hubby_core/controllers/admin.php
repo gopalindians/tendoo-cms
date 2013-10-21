@@ -608,10 +608,6 @@ class Admin
 		// Proceed
 		if($option	==	'index')
 		{
-			$this->adminConnection(); 			// 	Admin Users Libraries
-			$this->loadLibraries();				//	Affecting Libraries */
-			$this->construct_end();				// 	Fin du constructeur
-			$this->loadOuputFile();				// 	Output File
 			$this->data['pageTitle']	=	'Syst&ecirc;me et restauration';
 			$this->core->hubby->setTitle($this->data['pageTitle']);$this->data['lmenu']=	$this->load->view('admin/system_left_menu',$this->data,true);
 			$this->data['body']	=	$this->load->view('admin/system/body',$this->data,true);
