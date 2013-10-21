@@ -8,10 +8,9 @@
         </div>
     </div> 
     <div class="install_page" id="body">
-        <div class="page-region-content">
-            <br>
+        <div class="page-region-content" style="margin:1%;">
             <div class="grid">
-                <div class="row" style="margin-left:20px;">
+                <div class="row">
                 	<div class="tile triple double-vertical bg-color-blue">
                         <div class="tile-content" style="font-size:12px;">
                         	<h1>Bienvenue dans l'installation d'Hubby</h1>

@@ -8,10 +8,9 @@
         </div>
     </div> 
     <div class="install_page" id="body">
-        <div class="page-region-content">
-        	<br>
+        <div class="page-region-content" style="margin:1%;">
             <div class="grid">
-                <div class="row" style="margin-left:20px;">
+                <div class="row">
                     <div class="tile double double-vertical bg-color-greenDark">
                         <div class="tile-content">
                         	<h2>Connexion &agrave; la base de donn&eacute;es</h2>

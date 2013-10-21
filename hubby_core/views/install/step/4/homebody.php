@@ -8,10 +8,9 @@
         </div>
     </div> 
     <div class="install_page" id="body">
-        <div class="page-region-content">
-        	<br>
+        <div class="page-region-content" style="margin:1%;">
             <div class="grid">
-                <div class="row" style="margin-left:20px;">
+                <div class="row">
                 	<div class="span4">
                         <div class="tile double-vertical double bg-color-pinkDark">
                             <div class="tile-content">
@@ -108,7 +107,6 @@
         </div>
     </div>
     <div class="nav-bar-inner float_box_100" id="footer">
-    
     </div>
 </body>
 <body>

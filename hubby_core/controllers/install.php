@@ -36,8 +36,6 @@ class Install
 		$this->core->file->css_push('hubby_default');
 		$this->core->file->css_push('ub.framework');
 		$this->data['InstallError'] = '';
-		$this->data['menu_top']	=	$this->load->view('install/step/menu/top',$this->data,true);
-		$this->data['footer']	=	$this->load->view('install/bottom',$this->data,true);
 		if($i == 1)
 		{
 			$_SESSION['secur_access'] = 1;
