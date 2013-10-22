@@ -308,7 +308,6 @@ class Hubby
 	}
 	public function setOptions($name)
 	{
-		var_dump($this->core);
 		$q = $this->core->db->get('hubby_options');
 		$r = $q->result();
 		if(count($r) == 1)
