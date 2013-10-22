@@ -599,8 +599,10 @@ class hubby_admin
 											);
 										}
 									}
-									if(is_array($appInfo['appHiddenController']))
+									if(array_key_exists('appHiddenController',$appInfo))
 									{
+										if(is_array($appInfo['appHiddenController']))
+										{
 										if(
 											!array_key_exists('NAME',$appInfo['appHiddenController']) ||
 											!array_key_exists('CNAME',$appInfo['appHiddenController']) ||
@@ -623,6 +625,7 @@ class hubby_admin
 											null,
 											'FALSE'
 										); // Creating hidden Controller
+									}
 									}
 									return 'moduleInstalled';
 								}
