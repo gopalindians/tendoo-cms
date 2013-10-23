@@ -156,6 +156,8 @@ if(!function_exists('notice'))
 		$array['invalidApp']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Cette application Hubby est incorrecte, l\'installation &agrave; &eacute;chou&eacute;.</span>';
 		$array['adminCreationFailed']		=	'<span class="hubby_error"><i class="icon-blocked"></i> La cr&eacute;ation de l\'administrateur &agrave; &eacute;chou&eacute;. V&eacute;rifiez qu\'un autre administrateur portant le m&ecirc;me pseudo n\'existe pas. Il est &eacute;galement possible que le privili&egrave;ge qui lui a &eacute;t&eacute; affect&eacute; ne soit pas autoris&eacute;, ou que vous n\'avez pas les privil&egrave;ges suffisants pour effectuer cette op&eacute;ration.</span>';
 		$array['tableCreationFailed']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Une erreur s\'est produite durant la cr&eacute;ation de tables. Il est possible que les inforamtions qui ont &eacute;t&eacute; fournies pour la connexion vers la base de donn&eacute;e sont incorrecte. Veuillez recommencer.</span>';
+		$array['upload_invalid_filetype']		=	'<span class="hubby_error"><i class="icon-blocked"></i> L\'extension de ce fichier n\'est pas autoris&eacute;e</span>';
+		
 		
 		
 		

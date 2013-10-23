@@ -130,14 +130,6 @@ class hubby_admin
 					$this->core 	->db->where('ID',$q['ID'])
 								->update('hubby_controllers',$e);
 				}
-				$array[]	= array(
-					'PAGE_NAMES'	=> $q['PAGE_NAMES'],
-					'page_cname'=> $q['PAGE_CNAME'],
-					'page_mod'	=> $q['PAGE_MODULES'],
-					'page_title'=> $q['PAGE_TITLE'],
-					'page_desc'	=> $q['PAGE_DESCRIPTION'],
-					'page_main'	=> $q['PAGE_MAIN']
-				);
 			}
 			$e['PAGE_CNAME']		=	strtolower($cname);
 			$e['PAGE_NAMES']		=	strtolower($name);
