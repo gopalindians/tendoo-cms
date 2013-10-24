@@ -421,13 +421,30 @@ class Hubby
 		}
 		return false;
 	}
-	public function getSpeModule($id)
+	public function getSpeModule($id,$option =	TRUE) // Obsolete Transit
+	{
+		return $this->getSpeMod($id,$option);
+	}
+	public function getSpeMod($value,$option = TRUE)
 	{
 		$this->core->db		->select('*')
-							->from('hubby_modules')
-							->where('ID',$id);
+							->from('hubby_modules');
+		if($option == TRUE)
+		{
+			$this->core->db->where('ID',$value);
+		}
+		else
+		{
+			$this->core->db->where('NAMESPACE',$value);
+		}
+							
 		$query				= $this->core->db->get();
-		return $query->result_array();
+		$data				=	 $query->result_array();
+		if(count($data) > 0)
+		{
+			return $data;
+		}
+		return false;		
 	}
 	public function getSpeWidget($mod_attachement,$active	=	FALSE,$id = NULL)
 	{

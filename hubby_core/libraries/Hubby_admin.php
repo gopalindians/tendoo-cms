@@ -107,7 +107,7 @@ class hubby_admin
 		$query				= $this->core->db->get();
 		return $query->result_array();
 	}
-	public function controller($name,$cname,$mod,$title,$description,$main,$obj = 'create',$id = '',$visible)
+	public function controller($name,$cname,$mod,$title,$description,$main,$obj = 'create',$id = '',$visible	=	'TRUE')
 	{
 		$this->core	->db->select('*')
 					->from('hubby_controllers');
@@ -137,6 +137,7 @@ class hubby_admin
 			$e['PAGE_DESCRIPTION']	=	$description;
 			$e['PAGE_MAIN']			=	$main;
 			$e['PAGE_MODULES']		=	$mod;
+			$e['PAGE_VISIBLE']		=	$visible;
 			if($obj == 'create')
 			{
 				if($this->core		->db->insert('hubby_controllers',$e))
