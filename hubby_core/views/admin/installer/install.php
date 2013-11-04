@@ -2,8 +2,8 @@
     <div class="page secondary with-sidebar">
         <div class="page-header">
             <div class="page-header-content">
-                <h1>Installer une application<small>Module, th&egrave;me ou widget.</small></h1>
-            <a class="back-button big page-back" href="<?php echo $this->core->url->site_url(array('admin','widgets','main'));?>"></a></div>
+                <h1>Installer une application<small>Module ou th&egrave;me.</small></h1>
+            <a class="back-button big page-back" href="<?php echo $this->core->url->site_url(array('admin','index'));?>"></a></div>
         </div>
         <?php echo $lmenu;?>          
         <div class="page-region">

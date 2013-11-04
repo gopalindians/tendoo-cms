@@ -22,38 +22,6 @@
                     }
                     ?>
                     <br />
- <?php
-if(is_array($adminWidgets) && count($adminWidgets) > 0)
-{
-    foreach($adminWidgets as $a)
-    {
-        ?>
-        <div class="span3 bg-color-pinkDark" style="float:left;">
-            <div class="padding10">
-        <?php
-        echo $a->parseCode();
-        ?>
-            </div>
-        </div>
-        <?php
-    }
-}
-else
-{
-    ?>
-    <div class="grid">
-    	<div class="row">
-            <div class="span12 bg-color-greenDark fg-color-white">
-                <div class="padding10">
-                    <h2 class="fg-color-white">Aucun widget n'est activ&eacute;</h2>
-                    <p style="font-size:15px;line-height:25px;">Actuellement aucun widget administrateur n'est activ&eacute;, vous pouvez modifier les widgets disponibles depuis <a style="color:#F90;" href="<?php echo $this->core->url->site_url(array('admin','setting'));?>">les param&ecirc;tres</a> du site.</p>
-                </div>
-            </div>
-		</div>
-	</div>
-    <?php
-}
-?>
                 </div>
             </div>
         </div>

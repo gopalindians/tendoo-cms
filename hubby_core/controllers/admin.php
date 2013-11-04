@@ -71,8 +71,6 @@ class Admin
 	public function index()
 	{		
 		$this->data['options']		=	$this->core->hubby->getOptions();
-		// Récupère Les widgets définie par les modules.
-		$this->data['adminWidgets']	=	$this->core->hubby_admin->execModWidget();
 		$this->core->hubby->setTitle('Panneau de Contr&ocirc;le - Hubby');$this->data['lmenu']=	$this->load->view('admin/left_menu',$this->data,true);
 		$this->data['body']	=	$this->load->view('admin/index/body',$this->data,true);
 		
@@ -312,43 +310,6 @@ class Admin
 				$this->core->url->redirect(array('admin/modules?notice=unknowModule'));
 			}
 		}
-		else if($e == 'widgets')
-		{
-			$this->data['widget']	=	$this->core->hubby_admin->getSpeWidget($a);
-			$this->data['options']	=	$this->core->hubby->getOptions();
-
-			if(count($this->data['widget']) > 0)
-			{
-				$this->core->hubby->setTitle('Panneau d\'administration du widget &raquo; '.$this->data['widget'][0]['HUMAN_NAME']); 
-				$baseUrl	= $this->core->url->site_url(array('admin','open','widgets',$this->data['widget'][0]['ID']));
-				$detailsUri	=	$this->core->url->http_request(TRUE);
-				
-				include_once(WIDGETS_DIR.$this->data['widget'][0]['ENCRYPTED_DIR'].'/library.php');
-				include_once(WIDGETS_DIR.$this->data['widget'][0]['ENCRYPTED_DIR'].'/admin_controller.php');
-				
-				$Parameters			=	$this->core->url->http_request(TRUE);
-				if(array_key_exists(4,$Parameters))
-				{
-					$Method				=	$Parameters[4];
-				}
-				else
-				{
-					$Method			=	'index';
-				}
-				for($i = 0;$i < 5;$i++)
-				{
-					array_shift($Parameters);
-				}
-				$this->data['body']	=	$this->core->hubby->interpreter($this->data['widget'][0]['NAMESPACE'].'_admin_controller',$Method,$Parameters,$this->data);$this->data['lmenu']		=	$this->load->view('admin/left_menu',$this->data,true);
-				
-				$this->load->view('admin/header',$this->data);
-				$this->load->view('admin/global_body',$this->data);
-			}
-			else
-			{
-				$this->core->url->redirect(array('admin/widgets?notice=unknowWidget'));
-			}
-		}
 	}
 	public function setting()
 	{
@@ -418,18 +379,6 @@ class Admin
 				}
 			}
 			$this->data['result']	=	'';
-			if($this->input->post('active_widget'))
-			{
-				$this->data['editAW']	=	$this->core->hubby_admin->editAdminWidget($this->input->post('adwid_id'));
-				if($this->data['editAW'] == TRUE)
-				{
-					$this->data['result']	=	'<span class="success">Les param&egrave;tres ont &eacute;t&eacute; mis &agrave; jour</span>';
-				}
-				else
-				{
-					$this->data['result']	=	null;
-				}
-			}
 			if($this->input->post('other_setting')) // Setting notice go here.
 			{
 				$this->core->hubby_admin->setDefaultValuesForOtherSetting();
@@ -440,7 +389,6 @@ class Admin
 				$this->data['setting_notice_3']->push_notice(notice('done'));
 			}
 			$this->data['options']	=	$this->core->hubby->getOptions();
-			$this->data['adwid_names']	=	$this->core->hubby_admin->getModAdminWidget(TRUE);
 			$this->core->hubby->setTitle('Param&ecirc;tres - Hubby');$this->data['lmenu']=	$this->load->view('admin/left_menu',$this->data,true);
 			$this->data['body']	=	$this->load->view('admin/setting/body',$this->data,true);
 			
@@ -505,73 +453,6 @@ class Admin
 					$this->core->url->redirect(array('error','code','page404'));
 					return false;
 				}
-			}
-		}
-		else
-		{
-			$this->core->url->redirect(array('admin','menu?notice=accessDenied'));
-			return;
-		}
-	}
-	public function widgets($e = 'main', $a = null)
-	{
-		if($this->core->users_global->isSuperAdmin()	|| $this->hubby_admin->adminAccess('system','gestwid',$this->core->users_global->current('PRIVILEGE')))
-		{
-			if($e == 'main')
-			{
-				$this->data['widgets']	=	$this->hubby_admin->getWidgets();
-				$this->data['options']	=	$this->core->hubby->getOptions();
-				$this->core->hubby->setTitle('Gestion des widgets - Hubby');$this->data['lmenu']=	$this->load->view('admin/left_menu',$this->data,true);
-				$this->data['body']	=	$this->load->view('admin/widgets/main',$this->data,true);
-				
-				$this->load->view('admin/header',$this->data);
-				$this->load->view('admin/global_body',$this->data);
-			}
-			elseif($e == 'install')
-			{
-				if(isset($_FILES['uploaded_widget']))
-				{
-					$this->data['installWidget']	=	$this->core->hubby_admin->install_widget('uploaded_widget',TRUE);
-					$this->notice->push_notice(notice($this->data['installWidget']));
-				}
-				$this->data['options']	=	$this->core->hubby->getOptions();
-				$this->core->hubby->setTitle('Gestion des widgets - Hubby');$this->data['lmenu']=	$this->load->view('admin/left_menu',$this->data,true);
-				$this->data['body']	=	$this->load->view('admin/widgets/install',$this->data,true);
-				
-				$this->load->view('admin/header',$this->data);
-				$this->load->view('admin/global_body',$this->data);
-			}
-			elseif($e == 'delete')
-			{
-				$execution	=	$this->hubby_admin->unistallWidget($a);
-				$this->core->url->redirect(array('admin','widgets?notice='.$execution));
-			}
-			elseif($e == 'more')
-			{
-				$this->data['wid']	=	$a;
-				$this->core->form_validation->set_rules('widget_active','Etat du widget','trim|required|min_length[4]|max_length[5]');
-				$this->core->form_validation->set_rules('widget_id','identifiant','trim|required|min_length[1]|max_length[999]');
-				if($this->core->form_validation->run())
-				{
-					$execution		=	$this->hubby_admin->editWidgetState(
-						$this->core->input->post('widget_id'),
-						$this->core->input->post('widget_active')
-					);
-					if($execution === TRUE)
-					{
-						$this->notice->push_notice(notice('done'));
-					}
-					else
-					{
-						$this->notice->push_notice(notice('error'));
-					}
-					
-				}
-				$this->core->hubby->setTitle('R&eacute;glages avanc&eacute;es - Hubby');$this->data['lmenu']=	$this->load->view('admin/left_menu',$this->data,true);
-				$this->data['body']	=	$this->load->view('admin/widgets/more',$this->data,true);
-				
-				$this->load->view('admin/header',$this->data);
-				$this->load->view('admin/global_body',$this->data);	
 			}
 		}
 		else

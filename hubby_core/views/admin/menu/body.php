@@ -34,7 +34,7 @@
         	<div class="tile-content" data-url="<?php echo $this->core->url->site_url('admin/installer');?>">
                 <h4><strong>Installer une application Hubby</strong></h4>
                 <br>
-                <p>Installer une application Hubby (Th&egrave;me, Widget ou Module)</p>
+                <p>Installer une application Hubby (Th&egrave;me ou Module)</p>
                 <div class="brand">
                 	<div class="padding10">
                     	<i class="icon-download font-30"></i>
@@ -50,18 +50,6 @@
                 <div class="brand">
                 	<div class="padding10">
                     	<i class="icon-finder font-30"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    	<div class="tile double bg-color-blue">
-        	<div class="tile-content" data-url="<?php echo $this->core->url->site_url('admin/widgets');?>">
-                <h4><strong>Gestionnaire de widgets</strong></h4>
-                <br>
-                <p>Activer, configurer et d&eacute;sintaller les widgets.</p>
-                <div class="brand">
-                	<div class="padding10">
-                    	<i class="icon-yelp font-30"></i>
                     </div>
                 </div>
             </div>

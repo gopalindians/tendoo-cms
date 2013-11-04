@@ -17,7 +17,7 @@
                         </div>
                         <br />
                         <h3>Avis sur la restauration souple</h3>
-                        <p>Cette restauration d&eacute;sinstallera tous les modules, widgets et th&egrave;mes d&eacute;j&agrave; install&eacute;s, ainsi que toutes les informations qui ont &eacute;t&eacute; cr&eacute;ees par ces &eacute;l&eacute;ments depuis la. Une fois le proc&eacute;ssus lanc&eacute;, il ne peut pas &ecirc;tre arr&ecirc;t&eacute;. Si une erreur se produit durant la restauration, une reinstallation compl&egrave;te du CMS corrigera le probl&egrave;me.</p>
+                        <p>Cette restauration d&eacute;sinstallera tous les modules et th&egrave;mes d&eacute;j&agrave; install&eacute;s, ainsi que toutes les informations qui ont &eacute;t&eacute; cr&eacute;ees par ces &eacute;l&eacute;ments depuis la. Une fois le proc&eacute;ssus lanc&eacute;, il ne peut pas &ecirc;tre arr&ecirc;t&eacute;. Si une erreur se produit durant la restauration, une reinstallation compl&egrave;te du CMS corrigera le probl&egrave;me.</p>
                         <div class="span4">
                             <form method="post">
                                 <div class="input-control text">

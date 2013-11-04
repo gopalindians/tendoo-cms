@@ -200,7 +200,7 @@ class hubby_admin
 		}
 	}
 	// FILE HELPERS
-	private $system_dir	=	array('hubby_themes/','hubby_core/','hubby_installer/','hubby_modules/','hubby_widgets/','hubby_assets/');
+	private $system_dir	=	array('hubby_themes/','hubby_core/','hubby_installer/','hubby_modules/','hubby_assets/');
 	private function drop($source)
 	{
 		if(in_array($source,$this->system_dir))
@@ -377,61 +377,9 @@ class hubby_admin
 			array('SHOW_WELCOME'=>'FALSE')
 		);
 	}
-	// WIDGETS
-	private $RETURNED_VAR;
-	public function getWidgets($start = NULL,$end = NULL)
-	{
-		if($start != NULL && $end != NULL)
-		{
-			$this->core->db->limit($end,$start);
-		}
-		$query	=	$this->core->db->get('hubby_widgets');
-		return $query->result_array();
-	}
-	public function countWidgets()
-	{
-		$query	=	$this->core->db->get('hubby_widgets');
-		return $query->num_rows;
-	}
-	public function getSpeWidget($id = NULL, $active	=FALSE)
-	{
-		$this->core->db		->select('*')
-							->from('hubby_widgets');
-		if($id != NULL)
-		{
-			$this->core->db->where('ID',$id);
-			if($active	===	TRUE)
-			{
-				$this->core->db->where('ACTIVE','TRUE');
-			}
-		}
-		$query				= $this->core->db->get();
-		$result				=	$query->result_array();
-		if(count($result) > 0)
-		{
-			return $result;
-		}
-		return false;
-	}
-	public function unistallWidget($id)
-	{
-		$widget	=	$this->getSpeWidget($id);
-		if(is_array($widget))
-		{
-			$this->core->db->where('ID',$id)->delete('hubby_widgets');
-			$this->drop(WIDGETS_DIR.$widget[0]['ENCRYPTED_DIR']);
-			return 'widgetUnistalled';
-		}
-		return 'unknowWidget';
-	}
-	public function editWidgetState($id,$state)
-	{
-		return $this->core->db->where('ID',$id)->update('hubby_widgets',array('ACTIVE'=>$state));
-	}
 	// New methods
-	private $appAllowedType					=	array('MODULE','WIDGET','THEME');
+	private $appAllowedType					=	array('MODULE','THEME');
 	private $appModuleAllowedTableField		=	array('NAMESPACE','HUMAN_NAME','AUTHOR','DESCRIPTION','TYPE','HUBBY_VERS','ENCRYPTED_DIR');
-	private $appWidgetAllowedTableField		=	array('NAMESPACE','HUMAN_NAME','AUTHOR','DESCRIPTION','HUBBY_VERS','ENCRYPTED_DIR','MOD_ATTACHEMENT');
 	private $appThemeAllowedTableField		=	array('NAMESPACE','HUMAN_NAME','AUTHOR','DESCRIPTION','HUBBY_VERS','ENCRYPTED_DIR');
 	public function hubby_installer($source)
 	{
@@ -534,41 +482,6 @@ class hubby_admin
 									$this->extractor($temp_dir,MODULES_DIR.$appFile['temp_dir']);
 									$this->core->notice->push_notice(notice('moduleInstalled'));
 									$this->drop(INSTALLER_DIR.$appFile['temp_dir']);
-									// Installing Admin Widgets
-									if(array_key_exists('appAdminWidgetTableField',$appInfo))
-									{
-										if(is_array($appInfo['appAdminWidgetTableField']))
-										{
-											foreach($appInfo['appAdminWidgetTableField'] as $sql)
-											{
-												$notice	=	$this->installAdminWidget(MODULES_DIR.$appFile['temp_dir'].$sql['FILE_LOCATION'],
-												$sql['CLASS_NAME'],$sql['HUMAN_NAME'],
-												$appInfo['appTableField']['NAMESPACE'],
-												$show_adwid = FALSE);
-												if(is_string($notice))
-												{
-													$this->core->notice->push_notice('<span class="hubby_notice"><i class="icon-info"></i>  Le widget administrateur '.$sql['HUMAN_NAME'].' semble d&eacute;j&agrave; &ecirc;tre install&eacute;. Si une erreur se produit durant l\'utilisation, une r&eacute;installation peut corriger le probl&egrave;me.</span>');
-												}
-												else if(is_bool($notice))
-												{
-													$this->core->notice->push_notice('<span class="hubby_success"><i class="icon-checkmark"></i>  Le widget administrateur '.$sql['HUMAN_NAME'].' &agrave; &eacute;t&eacute; correctement install&eacute;e.</span>');
-												}											
-											}
-										}
-										else // Dans la mesure ou c un seul widget administrateur qui est instllé.
-										{
-											$notice	=	$this->installAdminWidget(MODULES_DIR.$appFile['temp_dir'].$appInfo['appAdminWidgetTableField']['FILE_LOCATION'],$appInfo['appAdminWidgetTableField']['CLASS_NAME'],$appInfo['appAdminWidgetTableField']['HUMAN_NAME'],$appInfo['appTableField']['NAMESPACE'],$show_adwid = FALSE);
-											if(is_string($notice))
-											{
-												$this->core->notice->push_notice('<span class="hubby_notice"><i class="icon-info"></i>  Le widget administrateur '.$appInfo['appAdminWidgetTableField']['HUMAN_NAME'].' semble d&eacute;j&agrave; &ecirc;tre install&eacute;. Si une erreur se produit durant l\'utilisation, une r&eacute;installation peut corriger le probl&egrave;me.</span>');
-											}
-											else if(is_bool($notice))
-											{
-												$this->core->notice->push_notice('<span class="hubby_success"><i class="icon-checkmark"></i>  Le widget administrateur '.$appInfo['appAdminWidgetTableField']['HUMAN_NAME'].' &agrave; &eacute;t&eacute; correctement install&eacute;e.</span>');
-											}
-										}
-										
-									}
 									
 									if(array_key_exists('appAction',$appInfo)) // If this app allow action for privileges
 									{
@@ -633,68 +546,6 @@ class hubby_admin
 						$this->core->notice->push_notice(notice('NoCompatibleModule'));
 						$this->drop(INSTALLER_DIR.$appFile['temp_dir']);
 						return 'NoCompatibleModule';
-					}
-					else if($appInfo['appType'] == 'WIDGET')
-					{
-						if(count($appInfo['appTableField']) > 0)
-						{
-							foreach(array_keys($appInfo['appTableField']) as $_appTableField)
-							{
-								if(!in_array($_appTableField,$this->appWidgetAllowedTableField))
-								{
-									$this->drop(INSTALLER_DIR.$appFile['temp_dir']);
-									$this->core->notice->push_notice(notice('invalidApp'));
-									return 'invalidApp';
-								}
-							}
-						}
-						else
-						{
-							$this->drop(INSTALLER_DIR.$appFile['temp_dir']);
-							$this->core->notice->push_notice(notice('invalidApp'));
-							return 'invalidApp';
-						}
-						if($appInfo['appHubbyVers'] <= $this->core->hubby->getVersId())
-						{
-							$this->core->db		->select('*')
-												->from('hubby_widgets')
-												->where('NAMESPACE',$appInfo['appTableField']['NAMESPACE']);
-							$query = $this->core->db->get();
-							// -----------------------------------------------------------------------------------------
-							if($query->num_rows == 0)
-							{
-								if(array_key_exists('appSql',$appInfo))
-								{
-									if(is_array($appInfo['appSql']))
-									{
-										foreach($appInfo['appSql'] as $sql)
-										{
-											$this->core->db->query($sql);
-										}
-									}
-								}
-								if(array_key_exists('appTableField',$appInfo))
-								{
-									$this->core->db->insert('hubby_widgets',$appInfo['appTableField']);
-								}
-								if(is_dir($temp_dir))
-								{
-									$this->extractor($temp_dir,WIDGETS_DIR.$appFile['temp_dir']);
-									$this->core->notice->push_notice(notice('widget_installed'));
-									$this->drop(INSTALLER_DIR.$appFile['temp_dir']);
-									return 'widget_installed';
-								}
-							}
-							else
-							{
-								$this->core->notice->push_notice(notice('widget_alreadyExist'));
-								$this->drop(INSTALLER_DIR.$appFile['temp_dir']);
-								return 'widget_alreadyExist';
-							}
-						}
-						$this->core->notice->push_notice(notice('nonCompatibleWidget'));
-						$this->drop(INSTALLER_DIR.$appFile['temp_dir']);
-						return 'nonCompatibleWidget';
 					}
 					else if($appInfo['appType'] == 'THEME')
 					{
@@ -775,85 +626,6 @@ class hubby_admin
 		}
 		return false;		
 	}
-	public function getModAdminWidget($settingUsage = FALSE)
-	{
-		if($settingUsage == TRUE)
-		{
-			$req	=	$this->core->db->get('hubby_admin_widgets');
-			return $req->result_array();
-		}
-		else
-		{
-			$req	=	$this->core->db->where('SHOW_ADWID','TRUE')->get('hubby_admin_widgets');
-			return $req->result_array();
-		}
-	}
-	public function installAdminWidget($file_location,$class_name,$human_name,$module_namespace,$show_adwid = FALSE)
-	{
-		$req = $this->core->db->where('CLASS_NAME',$class_name)->or_where('FILE_LOCATION',$file_location)->get('hubby_admin_widgets');
-		if(count($req->result_array())== 0)
-		{
-			return $this->core->db->insert('hubby_admin_widgets',
-				array('FILE_LOCATION'=>$file_location,'CLASS_NAME'=>$class_name,'HUMAN_NAME'=>$human_name,'MODULE_NAMESPACE'=>$module_namespace,'SHOW_ADWID'=>$show_adwid));
-		}
-		return 'adminWidgetExist';
-	}
-	public function execModWidget()
-	{
-		$req	=	$this->getModAdminWidget();
-		$ADWID	=	array();
-		foreach($req as $r)
-		{
-			$file_	=	$r['FILE_LOCATION'];
-			if(is_file($file_))
-			{
-				include_once($file_);
-				// Préparation des options;
-				$module		=	$this->getSpeMod($r['MODULE_NAMESPACE'],FALSE);
-				
-				$option['MODULE_DIR']	=	MODULES_DIR.$module[0]['ENCRYPTED_DIR'].'/';
-				// Fin des options
-				if(class_exists($r['MODULE_NAMESPACE'].'_'.$r['CLASS_NAME'].'_admin_widget'))
-				{
-					eval('$ADWID[] = new '.$r['MODULE_NAMESPACE'].'_'.$r['CLASS_NAME'].'_admin_widget($option);');
-				}
-				else
-				{
-					$this->core->notice->push_notice('<p class="error">'.$r['HUMAN_NAME'].' semble d&eacute;signer un widget administrateur qui n\'arrive pas &agrave; s\'initialiser correctement.</p>');
-				}
-			}
-			else
-			{
-				$this->core->notice->push_notice('<p class="error">'.$r['HUMAN_NAME'].' semble d&eacute;signer un widget administrateur qui n\'est pas correctement install&eacute;.</p>');
-			}
-		}
-		return $ADWID;
-	}
-	public function getSpeAdminWidget($id)
-	{
-		$req	=	 $this->core->db->where('ID',$id)->get('hubby_admin_widgets');
-		if(count($req->result_array()) > 0)
-		{
-			return $req->result_array();
-		}
-		return FALSE;
-	}
-	public function editAdminWidget($element)
-	{
-		$this->core->db->update('hubby_admin_widgets',array('SHOW_ADWID'=>'FALSE'));
-		if(is_array($element))
-		{
-			foreach($element as $e)
-			{
-				$mod	=	$this->getSpeAdminWidget($e);
-				if($mod !== FALSE)
-				{
-					$this->core->db->where('ID',$e)->update('hubby_admin_widgets',array('SHOW_ADWID'=>'TRUE'));
-				}
-			}
-			return TRUE;
-		}
-	}
 	public function cmsRestore($password)
 	{
 		$query		=	$this->core->db->where('PRIVILEGE','NADIMERPUS')->get('hubby_users');
@@ -889,18 +661,6 @@ class hubby_admin
 			}
 		}
 		$this->core->db->query('TRUNCATE `hubby_themes`');
-		// Removing widgets
-		$widgets	=	$this->getWidgets();
-		if(count($widgets) > 0)
-		{
-			foreach($themes as $t)
-			{
-				$this->unistallWidget($t['ID']);
-			}
-		}
-		$this->core->db->query('TRUNCATE `hubby_widgets`');
-		// Removing admin widgets
-		$this->core->db->query('TRUNCATE `hubby_admin_widgets`');
 		return true;
 	}
 	public function cmsHardRestore()
@@ -915,11 +675,6 @@ class hubby_admin
 		$this->drop(THEMES_DIR);
 		mkdir(THEMES_DIR);
 		mkdir(THEMES_DIR.'temp');
-		// Removing widgets
-		$this->core->db->query('TRUNCATE `hubby_widgets`');
-		$this->drop(WIDGETS_DIR);
-		mkdir(WIDGETS_DIR);
-		mkdir(WIDGETS_DIR.'temp');
 		return true;
 	}
 	public function countPrivileges()

@@ -35,22 +35,6 @@ class Hubby
 		$this->core		=	Controller::instance();
 		$config			=	$_SESSION['db_datas'];
 		$this->core->db	=	DB($config,TRUE);
-		/* CREATE hubby_admin_widgets*/
-		$sql=	
-		'CREATE TABLE IF NOT EXISTS `hubby_admin_widgets` (
-		  `ID` int(11) NOT NULL AUTO_INCREMENT,
-		  `FILE_LOCATION` varchar(200) NOT NULL,
-		  `SHOW_ADWID` varchar(200) NOT NULL,
-		  `CLASS_NAME` varchar(200) NOT NULL,
-		  `HUMAN_NAME` varchar(200) NOT NULL,
-		  `MODULE_NAMESPACE` varchar(200) NOT NULL,
-		  PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB';	
-		if(!$this->core->db->query($sql))
-		{
-			return false;
-		};	
-		
 		/* CREATE hubby_controllers */
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_controllers` (
@@ -80,10 +64,6 @@ class Hubby
 		  `TYPE` varchar(50) DEFAULT NULL,
 		  `ACTIVE` varchar(50) DEFAULT NULL,
 		  `HUBBY_VERS` varchar(100) NOT NULL,
-		  `HAS_ADWID` varchar(10) NOT NULL,
-		  `SHOW_ADWID` varchar(10) NOT NULL,
-		  `ADWID_INPUT_NAME` varchar(100) NOT NULL,
-		  `ADWID_HUMAN_NAME` varchar(100) NOT NULL,
 		  `ENCRYPTED_DIR` text,
 		  PRIMARY KEY (`ID`)
 		) ENGINE=InnoDB;';
@@ -124,26 +104,7 @@ class Hubby
 		{
 			return false;
 		};
-		/* CREATE hubby_widgets */
-		$sql = 
-		'CREATE TABLE IF NOT EXISTS `hubby_widgets` (
-		  `ID` int(11) NOT NULL AUTO_INCREMENT,
-		  `NAMESPACE` varchar(100) NOT NULL,
-		  `HUMAN_NAME` varchar(200) NOT NULL,
-		  `AUTHOR` varchar(100) NOT NULL,
-		  `DESCRIPTION` text NOT NULL,
-		  `ACTIVE` varchar(20) NOT NULL,
-		  `ENCRYPTED_DIR` text NOT NULL,
-		  `HUBBY_VERS` varchar(100) NOT NULL,
-		  `MOD_ATTACHEMENT` text NOT NULL,
-		  `PRIORITY` int(11) NOT NULL,
-		  PRIMARY KEY (`ID`)
-		) ENGINE=InnoDB;';
-		if(!$this->core->db->query($sql))
-		{
-			return false;
-		};
-		/* CREATE hubby_widgets */
+		/* CREATE hubby_users */
 		$sql = 
 		'CREATE TABLE IF NOT EXISTS `hubby_users` (
 		  `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -446,27 +407,6 @@ class Hubby
 		}
 		return false;		
 	}
-	public function getSpeWidget($mod_attachement,$active	=	FALSE,$id = NULL)
-	{
-		$this->core->db		->select('*')
-							->from('hubby_widgets');
-		$this->core->db->where('MOD_ATTACHEMENT',$mod_attachement);
-		if($id != NULL)
-		{
-			$this->core->db->where('ID',$id);
-		}
-		if($active	===	TRUE)
-		{
-			$this->core->db->where('ACTIVE','TRUE');
-		}
-		$query				= $this->core->db->get();
-		return $query->result_array();
-	}
-	public $widget_lines_code	=	array();
-	public function push_widget($line_code)
-	{
-		$this->widget_lines_code[]	=	$line_code;
-	}
 	public function getSpeModuleByNamespace($namespace)
 	{
 		$this->core->db		->select('*')
@@ -479,21 +419,6 @@ class Hubby
 			return $data;
 		}
 		return false;
-	}
-	public function widget_Loader($e) // OBSOLETE
-	{
-		if($e == 'bestart')
-		{
-			$this->data['widtget'][]	=	$this->getNews(0,10,null);
-			return $this->load->view('modules/news',$this->data,true);
-		}
-	}
-	public function parse_widgets()
-	{
-		foreach($this->widget_lines_code  as $w)
-		{
-			echo $w;
-		}
 	}
 	public function isInstall()
 	{

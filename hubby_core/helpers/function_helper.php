@@ -127,9 +127,7 @@ if(!function_exists('notice'))
 		$array['NoCompatibleModule']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Ce module n\'est pas compatible avec votre version actuelle d\'Hubby.</span>';
 		$array['SystemDirNameUsed']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Ce th&egrave;me ne peut pas &ecirc;tre install&eacute; car il a tent&eacute; de s\'installer dans un dossier syst&ecirc;me.</span>';
 		$array['theme_installed']	=	'<span class="hubby_success"><i class="icon-info"></i> L\'installation du th&egrave;me &agrave; r&eacute;ussi.</span>';
-		$array['widget_incorrect']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Ce widget est incrrect, l\'installation &agrave; &eacute;chou&eacute;.</span>';
 		$array['no_theme_selected']	=	'<span class="hubby_warning"><i class="icon-warning"></i></i> Attention, aucun th&egrave;me n\'a &eacute;t&eacute; choisi par d&eacute;faut.</span>';
-		$array['nonCompatibleWidget']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Ce widget n\'est pas compatible avec votre version d\'Hubby.</span>';
 		$array['defaultThemeSet']	=	'<span class="hubby_success"><i class="icon-info"></i> le th&egrave;me &agrave; &eacute;t&eacute; correctement d&eacute;finit par d&eacute;faut.</span>';
 		$array['unknowTheme']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Une erreur est survenu, ce th&egrave;me est inconnu ou introuvable</span>';
 		$array['missingArg']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Une erreur s\'est produite. Cette erreur &agrave; &eacute;t&eacute; caus&eacute; par un manque d\'argument, ou les arguments envoy&eacute;s sont incorrects.</span>';
@@ -137,14 +135,9 @@ if(!function_exists('notice'))
 		$array['restoringDone']		=	'<span class="hubby_success"><i class="icon-info"></i> La restauration s\'est correctement d&eacute;roul&eacute;e.</span>';
 		$array['cmsRestored']		=	'<span class="hubby_success"><i class="icon-checkmark"></i> La restauration s\'est d&eacute;roul&eacute; avec succ&egrave;s.</span>';
 		$array['creatingHiddenControllerFailure']		=	'<span class="hubby_error"><i class="icon-blocked"></i> La cr&eacute;ation du "controlleur module" &agrave; &eacute;chou&eacute;.</span>';
-		$array['widget_alreadyExist']		=	'<span class="hubby_notice"><i class="icon-info"></i>  Ce widget est d&eacute;j&agrave; install&eacute;.</span>';
-		$array['widget_installed']		=	'<span class="hubby_success"><i class="icon-info"></i> Le widget &agrave; &eacute;t&eacute; correctement install&eacute;.</span>';
-		$array['installFailed']		=	'<span class="hubby_error"><i class="icon-warning"></i> Une erreur est survenue durant l\'installation, certaines composantes n\'ont pas &eacute;t&eacute; correctement install&eacute;. Le module, th&egrave;me ou widget install&eacute; peut ne pas fonctionner correctement.</span>';
-		$array['unknowWidget']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Widget introuvable ou corrompu.</span>';
-		$array['widgetUnistalled']		=	'<span class="hubby_success">Le widget &agrave; &eacute;t&eacute; d&eacute;sintall&eacute;.</span>';
+		$array['installFailed']		=	'<span class="hubby_error"><i class="icon-warning"></i> Une erreur est survenue durant l\'installation, certaines composantes n\'ont pas &eacute;t&eacute; correctement install&eacute;.</span>';
 		$array['db_connect_error']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Connexion impossible ou int&eacute;rrompu. nombre maximum de connexion atteint pour cet utilisteur ou d&eacute;lai de connexion d&eacute;pass&eacute;. Veuillez recharger la page</span>';
 		$array['themeTrashed']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Une erreur est survenu, le th&egrave;me ne fonctionne pas correctement.</span>';
-		$array['adminWidgetExist']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Cet widget administrateur existe d&eacute;j&agrave;.</span>';
 		$array['noMainPage']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Erreur : Vous tentez d\'acc&eacute;der &agrave; la page principale du site, cependant aucune page n\'a &eacute;t&eacute; d&eacute;finie par d&eacute;faut. Connectez-vous &agrave; l\'espace administrateur pour corriger ce probl&egrave;me.</span>';
 		$array['AdminAuthFailed']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Pseudo ou mot de passe administrateur incorrect</span>';
 		
@@ -157,6 +150,8 @@ if(!function_exists('notice'))
 		$array['adminCreationFailed']		=	'<span class="hubby_error"><i class="icon-blocked"></i> La cr&eacute;ation de l\'administrateur &agrave; &eacute;chou&eacute;. V&eacute;rifiez qu\'un autre administrateur portant le m&ecirc;me pseudo n\'existe pas. Il est &eacute;galement possible que le privili&egrave;ge qui lui a &eacute;t&eacute; affect&eacute; ne soit pas autoris&eacute;, ou que vous n\'avez pas les privil&egrave;ges suffisants pour effectuer cette op&eacute;ration.</span>';
 		$array['tableCreationFailed']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Une erreur s\'est produite durant la cr&eacute;ation de tables. Il est possible que les inforamtions qui ont &eacute;t&eacute; fournies pour la connexion vers la base de donn&eacute;e sont incorrecte. Veuillez recommencer.</span>';
 		$array['upload_invalid_filetype']		=	'<span class="hubby_error"><i class="icon-blocked"></i> L\'extension de ce fichier n\'est pas autoris&eacute;e</span>';
+		$array['themeControlerFailed']		=	'<span class="hubby_notice"><i class="icon-blocked"></i> Le contr&ocirc;leur de ce th&egrave;me n\'est pas correctement d&eacute;finie. La gestion des param&ecirc;tres avanc&eacute;s est suspendue.</span>';
+		$array['themeControlerNoFound']		=	'<span class="hubby_notice"><i class="icon-blocked"></i> Ce th&egrave;me ne contient aucun gestionnaire avanc&eacute; de param&ecirc;tre.</span>';
 		
 		
 		

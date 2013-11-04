@@ -43,10 +43,11 @@
                                     }
                                 ?>
                             <tr>
-                                <td ><a class="view" href="<?php echo $this->core->url->site_url(array('admin','themes','manage',$t['ID']));?>"><?php echo $t['NAMESPACE'];?></a></td>
+                                <td ><a class="view" href="<?php echo $this->core->url->site_url(array('admin','themes','config',$t['ID']));?>"><?php echo $t['NAMESPACE'];?></a></td>
                                 <td ><?php echo $t['AUTHOR'];?></td>
                                 <td ><?php echo $t['DESCRIPTION'];?></td>
                                 <td ><?php echo $t['ACTIVATED'];?></td>
+                                <td ><a class="view" href="<?php echo $this->core->url->site_url(array('admin','themes','manage',$t['ID']));?>">Param&ecirc;tre avanc&eacute;</a></td>
                             </tr>
                                 <?php
                                 }

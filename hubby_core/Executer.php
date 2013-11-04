@@ -8,27 +8,14 @@ if(class_exists($Class))
 }
 else if(class_exists($Class.'_module_controller'))
 {
-	// Chargement du widget pour ce module chargé var_dump($Class);
 	$this->load->library('users_global');
-	$this->data['widget']			=		$this->hubby->getSpeWidget($Class,TRUE);
-	if(is_array($this->data['widget']))
+	if(!array_key_exists('theme',$this->data))
 	{
-		foreach($this->data['widget'] as $w)
-		{
-			if(is_dir('hubby_widgets/'.$w['ENCRYPTED_DIR'])) /// VERIFICATION DU DOSSIER CRYPTE
-			{
-				if(!array_key_exists('theme',$this->data))
-				{
-					$this->url->redirect(array('error','code','themeTrashed'));
-					return false;
-				}
-				$theme			=	$this->data['theme'];
-				$WIDIR			=	WIDGETS_DIR.$w['ENCRYPTED_DIR'].'/';
-				include_once('hubby_widgets/'.$w['ENCRYPTED_DIR'].'/module_controller.php');
-			}
-		}
+		$this->url->redirect(array('error','code','themeTrashed'));
+		return false;
 	}
-	// Fin du chargement du widget
+	$theme			=	$this->data['theme']; // Added - Hubby 0.9.2
+	
 	if($this->hubby->interpreter($Class.'_module_controller',$Method,$Parameters,$this->data) === '404')
 	{
 		$this->hubby->error('page404');

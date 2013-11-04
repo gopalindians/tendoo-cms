@@ -106,45 +106,6 @@
                     <h2>Param&ecirc;tres</h2>
                     <div class="grid">
                     	<div class="row">
-                        	<div class="span4">
-                                <form method="post">
-                                    <div class="padding10 bg-color-whiteDark fg-color-black">
-                                        <div class="input-control text">
-                                        	<h3 class="fg-color-dark">Widgets administration</h3>
-												<?php
-                                                if(is_array($adwid_names) && count($adwid_names) > 0)
-                                                {
-                                                    foreach($adwid_names as $d)
-                                                    {
-                                                        if($d['SHOW_ADWID'] == 'TRUE')
-                                                        {
-                                                            $checked	=	'checked="checked"';
-                                                        }
-                                                        else
-                                                        {
-                                                            $checked	=	'';
-                                                        }
-                                                        ?>
-                                                        <div style="line-height:25px;"><span style="float:left;min-width:180px;"><?php echo $d['HUMAN_NAME'];?> : </span>	<input name="adwid_id[]" type="checkbox" value="<?php echo $d['ID'];?>" <?php echo $checked;?> /></div>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                    <?php echo $result.'<br>';?>
-                                                    <br />
-                                                    <input type="submit" value="Enregistrer les modif." name="active_widget" />
-                                                    <?php
-                                                }
-                                                else
-                                                {
-                                                    ?>
-                                                    Aucun Widget Disponible.
-                                                    <?php
-                                                }
-                                                ?>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
                             <div class="span4">
                                 <form method="post">
                                     <div class="padding10 bg-color-yellowPureDark fg-color-white">

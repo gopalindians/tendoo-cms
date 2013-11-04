@@ -27,7 +27,7 @@
                                 </ul>
                             </div>
                             <div style="font-size:12px;">
-                            <span>Connectez vous &agrave; l'espace administrateur pour modifier les informations de votre site, cr&eacute;er des administrateurs, installer les th&egrave;mes, widgets et modules.</span>
+                            <span>Connectez vous &agrave; l'espace administrateur pour modifier les informations de votre site, cr&eacute;er des administrateurs, installer les th&egrave;mes et modules.</span>
                             </div>
                             <form method="post">
                             	<input type="submit" value="Continuer" style="float:right;" name="submit">

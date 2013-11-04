@@ -21,9 +21,6 @@
         <li class="sticker sticker-color-yellow">
 			<a href="<?php echo $this->core->url->site_url('admin/themes');?>">Liste des th&egrave;mes</a>
 		</li>
-        <li class="sticker sticker-color-purple">
-        	<a href="<?php echo $this->core->url->site_url('admin/widgets/main');?>">Liste des widgets</a>
-		</li>
         <li class="sticker sticker-color-pinkDark">
 			<a href="<?php echo $this->core->url->site_url('admin/setting');?>">Param&egrave;tres et configurations</a>
 		</li>

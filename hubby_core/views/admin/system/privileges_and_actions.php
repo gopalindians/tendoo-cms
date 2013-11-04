@@ -93,7 +93,6 @@
 									$values['gestapp']	=	$this->core->hubby_admin->getValueForPrivNameAndSystem('system','gestapp',$p['PRIV_ID']);	
 									$values['gestheme']	=	$this->core->hubby_admin->getValueForPrivNameAndSystem('system','gestheme',$p['PRIV_ID']);	
 									$values['gestmo']	=	$this->core->hubby_admin->getValueForPrivNameAndSystem('system','gestmo',$p['PRIV_ID']);	
-									$values['gestwid']	=	$this->core->hubby_admin->getValueForPrivNameAndSystem('system','gestwid',$p['PRIV_ID']);	
 									$values['gestset']	=	$this->core->hubby_admin->getValueForPrivNameAndSystem('system','gestset',$p['PRIV_ID']);	
 							?>
 								<li data-form-name="<?php echo $p['PRIV_ID'];?>">
@@ -145,7 +144,7 @@
 												</div>
 												<div class="data">
 													<h4>Installer une application</h4>
-													<p>Installation d'application de type module, th&egrave;me ou widget.</p>
+													<p>Installation d'application de type module ou th&egrave;me.</p>
 												</div>
 											</li>
 											<li class="
@@ -194,30 +193,6 @@
 												<div class="data">
 													<h4>Gestion des modules</h4>
 													<p>Affichage et suppresion d'un module</p>
-												</div>
-											</li>
-											<li class="
-											<?php
-											if(array_key_exists('REF_ACTION_VALUE',$values['gestwid']))
-											{
-												echo ($values['gestwid']['REF_ACTION_VALUE'] == 'true') ? 'selected'	:	'';
-											}
-											?>" data-name="gestwid" data-value="<?php
-											if(array_key_exists('REF_ACTION_VALUE',$values['gestwid']))
-											{
-												echo ($values['gestwid']['REF_ACTION_VALUE'] == 'true') ? 'true'	:	'false';
-											}
-											else
-											{
-												echo 'false';
-											}
-											?>">
-												<div class="icon">
-												   <div class="icon-yelp" style="font-size:40px;"></div>
-												</div>
-												<div class="data">
-													<h4>Gestion des widgets</h4>
-													<p>Utilisation, modification, suppression de widgets</p>
 												</div>
 											</li>
 											<li class="
