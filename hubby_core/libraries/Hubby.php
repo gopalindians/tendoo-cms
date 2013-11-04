@@ -370,10 +370,9 @@ class Hubby
 		return $r->result_array();
 	}
 	/// MODULES LOADER
-	public function getGlobalModules($e=1) // Récupération de tous les modules de type GLOBAL
+	public function getGlobalModules() // Récupération de tous les modules de type GLOBAL
 	{
 		$query	=	$this->core->db	->where('TYPE','GLOBAL')
-									->where('PRIORITY',$e)
 									->get('hubby_modules');
 		$data	=	$query->result_array();
 		if(count($data) > 0)
@@ -537,7 +536,7 @@ class Hubby
 	}
 	public function timespan($timestamp)
 	{
-		return timespan($this->timestamp(),$timestamp);
+		return timespan($timestamp,$this->timestamp());
 	}
 	public function datetime()
 	{
@@ -721,7 +720,7 @@ class Hubby
 					}
 				}
 				$i++;
-			}
+			}			
 			eval('$BODY 	=	$objet->'.$Method.'('.$param_text.');'); // exécution du controller.
 			return $BODY;
 		}
@@ -779,7 +778,7 @@ class Hubby
 				$more[]	=	array(
 					'link'	=>	$baselink.$i,
 					'text'	=>	$i,
-					'state'	=>	($i === $current_page) ? $classOn : $classOff
+					'state'	=>	((int)$i === (int)$current_page) ? $classOn : $classOff // Fixing int type 03.11.2013
 				);
 				static $content = 'Page :';
 				if($i == $fts && $i != 1): $content = $content.'<span style="margin:0 2px">...</span>';endif;

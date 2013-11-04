@@ -2,9 +2,6 @@
 Class users_global
 {
 	private $core;
-	private	$session;
-	private $db;
-	private	$hubby;
 	private $current;
 	private $user_connected;
 	private $connection_status;
@@ -12,7 +9,7 @@ Class users_global
 	public function __construct()
 	{
 		$this->superAdmin	=	'NADIMERPUS';
-		$this->core	=	Controller::instance();
+		$this->core		=	Controller::instance();
 		$this->session	=&	$this->core->session;
 		$this->db		=&	$this->core->db;
 		$this->hubby	=&	$this->core->hubby;
@@ -274,7 +271,7 @@ Class users_global
 					}
 					?>
                 </ul>
-                <div class="floatR" style="line-height:50px;margin-right:20px;">
+                <div style="line-height:30px;float:right;margin-right:20px;">
                     <a href="<?php echo $this->core->url->site_url(array('logoff'));?>" style="text-decoration:none;color:#F90;">Deconnexion</a>
                 </div>
             </div>
@@ -326,12 +323,13 @@ Class users_global
 			.logo img
 			{
 				float: left;
-				height: 40px;
+				height: 30px;
 				position: relative;
+				top:-5px;
 			}
 			#user_menu
 			{
-				height:50px;
+				height:30px;
 				width:100%;
 				position:fixed;
 				top:0;
@@ -352,8 +350,8 @@ Class users_global
 			}
 			#user_menu ul li a
 			{
-				height:50px;
-				line-height:50px;
+				height:30px;
+				line-height:30px;
 				padding:0 10px;
 				text-decoration:none;
 				color:#FFF;

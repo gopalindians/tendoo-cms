@@ -309,7 +309,7 @@ class Loader
 			$classvar = $object_name;
 		}
 		// Save the class name and object name
-		$this->_ci_classes[$class] = $classvar;
+		$this->_ci_classes[$class] = $classvar; // ? seems to be unused
 
 		// Instantiate the class
 		if (is_array($params))
@@ -318,7 +318,7 @@ class Loader
 		}
 		else
 		{
-			$this->core->$classvar = new $name;
+			$this->core->$classvar 	= new $name;
 		}
 	}
 	public function helper($helper	= array())

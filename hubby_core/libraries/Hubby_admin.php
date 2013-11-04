@@ -5,7 +5,6 @@ class hubby_admin
 	private $leftMenuExtentionBefore 	= '';
 	private $leftMenuExtentionAfter 	= '';
 	private $core;
-	private $hubby;
 	public function __construct()
 	{
 		$this->core				=	Controller::instance();

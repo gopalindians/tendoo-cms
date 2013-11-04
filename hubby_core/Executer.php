@@ -8,13 +8,20 @@ if(class_exists($Class))
 }
 else if(class_exists($Class.'_module_controller'))
 {
+	$theme			=&	$this->data['theme']; // Added - Hubby 0.9.2
+	// GLOBAL MODULES
+	$GlobalModule	=&	$this->data['GlobalModule'];
+	foreach($GlobalModule as $g)
+	{
+		$this->hubby->interpreter($g['NAMESPACE'].'_module_controller',$Method,$Parameters,$this->data); // We do not control if there is 404 result.
+	}
+	// BY PAGE MODULES
 	$this->load->library('users_global');
 	if(!array_key_exists('theme',$this->data))
 	{
 		$this->url->redirect(array('error','code','themeTrashed'));
 		return false;
 	}
-	$theme			=	$this->data['theme']; // Added - Hubby 0.9.2
 	
 	if($this->hubby->interpreter($Class.'_module_controller',$Method,$Parameters,$this->data) === '404')
 	{
@@ -30,5 +37,5 @@ else if(class_exists('hubby_'.$Class))
 }
 else
 {
-	echo 'PAGE404 -- EXECUTER.php';
+	$this->hubby->error('page404');
 }

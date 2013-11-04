@@ -2,6 +2,7 @@
 class Admin
 {
 	private $data;
+	private $core;
 	public function __construct()
 	{
 		$this->core					=	Controller::instance();
@@ -65,7 +66,7 @@ class Admin
 		$this->core->file->js_push('jquery-ui-1.8');
 		$this->core->file->js_push('dropdown');
 		$this->core->file->js_push('hubby_app');
-		$this->core->file->js_push('resizer');
+		$this->core->file->js_push('input-control');
 	}
 	// Public functions
 	public function index()
@@ -258,7 +259,7 @@ class Admin
 			if(count($this->data['module']) > 0)
 			{
 				$this->core->hubby->setTitle('Panneau d\'administration du module - '.$this->data['module'][0]['NAMESPACE']); // DEFAULT NAME DEFINITION
-				$baseUrl	= $this->core->url->site_url(array('admin','open','modules',$this->data['module'][0]['ID']));
+				/* 	$baseUrl	= 	$this->core->url->site_url(array('admin','open','modules',$this->data['module'][0]['ID'])); */
 				$detailsUri	=	$this->core->url->http_request(TRUE);
 				
 				include_once(MODULES_DIR.$this->data['module'][0]['ENCRYPTED_DIR'].'/library.php');
@@ -278,6 +279,10 @@ class Admin
 					array_shift($Parameters);
 				}
 				$this->data['interpretation']	=	$this->core->hubby->interpreter($this->data['module'][0]['NAMESPACE'].'_admin_controller',$Method,$Parameters,$this->data);
+				if($this->data['interpretation'] == '404')
+				{
+					$this->core->url->redirect(array('error','code','page404'));
+				}
 				if(is_array($this->data['interpretation']))
 				{
 					if(array_key_exists('MCO',$this->data['interpretation']))
@@ -450,9 +455,75 @@ class Admin
 				}
 				else
 				{
-					$this->core->url->redirect(array('error','code','page404'));
+					$this->core->url->redirect(array('error','code','unknowTheme'));
 					return false;
 				}
+			}
+			else if($e ==  'config') // Added 0.9.2
+			{
+				$this->data['Spetheme']	=	$this->hubby_admin->isTheme($a);
+				if(is_array($this->data['Spetheme'])) 
+				{
+					$Parameters			=	$this->core->url->http_request(TRUE);
+					$admin_controler	=	THEMES_DIR.$this->data['Spetheme'][0]['ENCRYPTED_DIR'].'/admin_controller.php';
+					$library			=	THEMES_DIR.$this->data['Spetheme'][0]['ENCRYPTED_DIR'].'/library.php';
+					if(is_file($admin_controler) && is_file($library))
+					{
+						include_once($admin_controler); // Include admin controler
+						include_once($library); // Include Theme internal library
+						if(array_key_exists(4,$Parameters))
+						{
+						$Method				=	$Parameters[4];
+					}
+						else
+						{
+						$Method			=	'index';
+					}
+						for($i = 0;$i < 5;$i++)
+						{
+						array_shift($Parameters);
+					}
+						$this->data['interpretation']	=	$this->core->hubby->interpreter($this->data['Spetheme'][0]['NAMESPACE'].'_theme_admin_controller',$Method,$Parameters,$this->data);
+						if(is_array($this->data['interpretation']))
+						{
+						if(array_key_exists('MCO',$this->data['interpretation']))
+						{
+							if($this->data['interpretation']['MCO'] == TRUE)
+							{
+								$this->data['body']['RETURNED']	=	array_key_exists('RETURNED',$this->data['interpretation']) ? 
+									$this->data['interpretation']['RETURNED'] : 
+									$this->core->exceptions->show_error('Interpr&eacute;tation mal d&eacute;finie','L\'interpreation renvoi un tableau qui ne contient pas la cl&eacute; "RETURNED". Le module chargé renvoi un tableau incorrect ou incomplet.'); // If array key forget, get all content as interpretation.
+								$this->data['body']['MCO']		=	$this->data['interpretation']['MCO'];
+								$this->load->view('admin/global_body',$this->data);
+							}
+						}
+						else
+						{
+							$this->core->exceptions->show_error('Interpr&eacute;tation mal d&eacute;finie','L\'interpreation renvoi un tableau qui ne contient pas la cl&eacute; "MCO". Le module chargé renvoi un tableau incorrect ou incomplet.');
+						}
+					}
+						else
+						{
+						$this->data['body']['RETURNED']	=	$this->data['interpretation'];
+						$this->data['body']['MCO']		=	FALSE;$this->data['lmenu']			=	$this->load->view('admin/left_menu',$this->data,true);
+						
+						$this->load->view('admin/header',$this->data);
+						$this->load->view('admin/global_body',$this->data);
+					}
+					}
+					else
+					{
+						$this->core->url->redirect(array('error','code','themeControlerNoFound'));
+					}
+				}
+				else
+				{
+					$this->core->url->redirect(array('error','code','unknowTheme'));
+				}
+			}
+			else
+			{
+				$this->core->url->redrect(array('error','code','page404'));
 			}
 		}
 		else

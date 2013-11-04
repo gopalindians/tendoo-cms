@@ -11,15 +11,18 @@
             	<h2>Liste des modules install&eacute;s</h2>
 				<?php echo $this->core->notice->parse_notice();?>
                 <?php echo $success;?>
-                <table class="bordered hub_table">
-                    <tr class="info">
-                        <td>Nom</td>
-                        <td>Description</td>
-                        <td>Auteur</td>
-                        <td>Actif</td>
-                        <td>Type</td>
-                        <td>Action</td>
-                    </tr>
+                <table class="bordered striped">
+                	<thead>
+                        <tr class="info">
+                            <td>Nom</td>
+                            <td>Description</td>
+                            <td>Auteur</td>
+                            <td>Actif</td>
+                            <td>Type</td>
+                            <td>Action</td>
+                        </tr>
+					</thead>
+                    <tbody>
                     <?php 
                 if($mod_nbr > 0)
                 {
@@ -46,6 +49,7 @@
                     <?php
                 }
             ?>
+            		</tbody>
                 </table>
             </div>
         </div>

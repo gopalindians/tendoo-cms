@@ -15,7 +15,6 @@ Class Controller
 	public	$session;
 	public 	$user_global;
 	// other vars
-	private $SAG;
 	protected static $instance;
 	public function __construct()
 	{
@@ -44,8 +43,6 @@ Class Controller
 		/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 		$this->session	=	new Session;
 		/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-		
-		$this->SAG		=	FALSE; // Stop After Global
 		/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 		$baseUrl	=	$this->url->site_url(array('index'));
 		$Class		=	$this->url->controller();	
@@ -223,7 +220,7 @@ Class Controller
 						}
 						if($this->data['module'] !== FALSE) // LE MODULE EST INEXISTANT OU INCORRECT
 						{
-							// PRIORITE 1
+							// La priorité n'est plus prise en charge
 							$this->data['GlobalModule']	=		$this->hubby->getGlobalModules(1);   // Chargement des modules de type GLOBAL
 							if(is_array($this->data['GlobalModule']))
 							{
@@ -234,25 +231,12 @@ Class Controller
 									include_once(MODULES_DIR.$r['ENCRYPTED_DIR'].'/module_controller.php');
 								}
 							}
-							// PRIORITE 2
-							$this->data['GlobalModule']	=		$this->hubby->getGlobalModules(2);   // Chargement des modules de type GLOBAL
-							if(is_array($this->data['GlobalModule']))
-							{
-								foreach($this->data['GlobalModule'] as $r)
-								{
-									$HUBBY_MODULE	=	$r;
-									include_once(MODULES_DIR.$r['ENCRYPTED_DIR'].'/library.php');
-									include_once(MODULES_DIR.$r['ENCRYPTED_DIR'].'/module_controller.php');
-								}
-							}
-							if($this->SAG == FALSE)
-							{
-								// LOAD ON PAGE MODULE
-								$HUBBY_MODULE	=	$this->data['module'][0];
-								include_once(MODULES_DIR.$this->data['module'][0]['ENCRYPTED_DIR'].'/library.php');
-								include_once(MODULES_DIR.$this->data['module'][0]['ENCRYPTED_DIR'].'/module_controller.php');
-								$Class	=	$this->data['module'][0]['NAMESPACE']; // REAFFECT CLASS VALUE DUE TO EXISTENT MODULE CLASS
-							}
+							// $this->SAG has been removed, ever used
+							// LOAD ON PAGE MODULE
+							$HUBBY_MODULE	=	$this->data['module'][0];
+							include_once(MODULES_DIR.$this->data['module'][0]['ENCRYPTED_DIR'].'/library.php');
+							include_once(MODULES_DIR.$this->data['module'][0]['ENCRYPTED_DIR'].'/module_controller.php');
+							$Class	=	$this->data['module'][0]['NAMESPACE']; // REAFFECT CLASS VALUE DUE TO EXISTENT MODULE CLASS
 						}
 						else
 						{
@@ -261,7 +245,7 @@ Class Controller
 						}
 					}
 				}
-				if($this->SAG == FALSE)
+				if(TRUE) // $this->SAG == FALSE had beend removed, ever used.
 				{
 					include_once(SYSTEM_DIR.'Executer.php'); /// MODULE EXECUTER
 				}
@@ -289,8 +273,8 @@ Class Controller
 
 		return $_config_item[$item];
 	}
-	public function StopAfterGlobal($values)
+	public function __clone()
 	{
-		$this->SAG	=	is_bool($values) ? $values : FALSE;
+		return $this->instance();
 	}
 }

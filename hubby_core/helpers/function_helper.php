@@ -120,7 +120,7 @@ if(!function_exists('notice'))
 		$array['userNotFoundOrWrongPass']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Utilisateur introuvable ou pseudo et/ou mot de passe &eacute;rron&eacute;e.</span>';
 		$array['notForYourPriv']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Acc&eacute;der &agrave; cet &eacute;l&eacute;ment ne fait pas partie de vos privil&egrave;ges.</span>';
 		$array['unknowAdmin']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Administrateur introuvable.</span>';
-		$array['moduleBug']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Le module charg&eacute; dans cette page &agrave; eu un probl&egrave;me. Les raisons de cette erreur peuvent survenir du fait qu\'un module syst&egrave;me ou non, dont d&eacute;pendant ce module, &agrave; &eacute;t&eacute; supprim&eacute;.</span>';
+		$array['moduleBug']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Une erreur s\'est produite. Le module auquel ce module est attach&eacute; est introuvable.</span>';
 		$array['notAllowed']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Il ne vous est pas permis d\'effectuer cette op&eacute;ration, soit parceque cela vous &agrave; &eacute;t&eacute; expr&egrave;ssement interdit, soit parceque vos privil&egrave;ges actuels ne vous le permettent pas.</span>';
 		$array['theme_alreadyExist']	=	'<span class="hubby_notice"><i class="icon-info"></i> Ce th&egrave;me est d&eacute;j&agrave; install&eacute;.</span>';
 		$array['NoCompatibleTheme']	=	'<span class="hubby_error"><i class="icon-blocked"></i> Ce th&egrave;me n\'est pas compatible avec votre version actuelle d\'Hubby.</span>';
