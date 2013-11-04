@@ -224,17 +224,17 @@ class Admin
 			if($this->form_validation->run())
 			{
 				$this->data['module']	=	$module 	= $this->core->hubby->getSpeModule($this->input->post('mod_id'));
-				$installexec			=	$this->core->hubby_admin->unistall_module($this->data['module'][0]['ID']);
+				$installexec			=	$this->core->hubby_admin->uninstall_module($this->data['module'][0]['ID']);
 				if($installexec)
 				{
-					$this->core->url->redirect(array('admin','modules','main',1,'module_unistalled'));
+					$this->core->url->redirect(array('admin','modules','main',1,'module_uninstalled'));
 				}
 			}
 			$this->data['module']	=	$module 	= $this->core->hubby->getSpeModule($id);
 			if(count($module) > 0)
 			{
 				$this->core->hubby->setTitle('Desinstallation du plugin - '.$module[0]['NAMESPACE']);$this->data['lmenu']=	$this->load->view('admin/left_menu',$this->data,true);
-				$this->data['body']	=	$this->load->view('admin/modules/unistall',$this->data,true);
+				$this->data['body']	=	$this->load->view('admin/modules/uninstall',$this->data,true);
 				
 				$this->load->view('admin/header',$this->data);
 				$this->load->view('admin/global_body',$this->data);
@@ -439,7 +439,7 @@ class Admin
 				{
 					if($this->input->post('delete') == 'ADMITDELETETHEME')
 					{
-						$this->data['queryResult']	=	$this->core->hubby_admin->unistall_theme($this->input->post('theme_id'));
+						$this->data['queryResult']	=	$this->core->hubby_admin->uninstall_theme($this->input->post('theme_id'));
 						$this->core->url->redirect(array('admin','themes','main?notice='.$this->data['queryResult']));
 					}
 				}

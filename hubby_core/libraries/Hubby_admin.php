@@ -185,7 +185,7 @@ class hubby_admin
 		}
 	}
 	// Module Functions
-	public function unistall_module($id)
+	public function uninstall_module($id)
 	{
 		$Module		=	$this->getSpeMod($id,TRUE);
 		if($Module !== FALSE)
@@ -315,7 +315,7 @@ class hubby_admin
 		}
 		return 'unknowTheme';
 	}
-	public function unistall_theme($id)
+	public function uninstall_theme($id)
 	{
 		$theme	=	$this->isTheme($id);
 		if($theme)
@@ -646,7 +646,7 @@ class hubby_admin
 		{
 			foreach($modules as $m)
 			{
-				$this->unistall_module($m['ID']);
+				$this->uninstall_module($m['ID']);
 			}
 		}
 		$this->core->db->query('TRUNCATE `hubby_modules`');
@@ -656,7 +656,7 @@ class hubby_admin
 		{
 			foreach($themes as $t)
 			{
-				$this->unistall_theme($t['ID']);
+				$this->uninstall_theme($t['ID']);
 			}
 		}
 		$this->core->db->query('TRUNCATE `hubby_themes`');

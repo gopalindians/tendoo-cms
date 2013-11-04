@@ -238,7 +238,7 @@ class Hubby
 		\$db['stricton'] = FALSE;";
 		$file = fopen('hubby_core/config/hubby_config.php','w+');
 		fwrite($file,$string_config);
-		fclose($file);	
+		fclose($file);		
 	}
 	public function attemptConnexion($host,$user,$pass,$db_name,$type)
 	{
