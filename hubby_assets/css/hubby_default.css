@@ -17,7 +17,14 @@ body
 {
 	background:#003 !important;
 }
+.install_page
+{
+}
 @media (min-width: 1200px) {
+.page-region-content
+{
+	padding-right:10px !important;
+}
 #body
 {
 	float:left;

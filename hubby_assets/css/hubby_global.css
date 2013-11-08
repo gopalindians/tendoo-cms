@@ -29,6 +29,12 @@
 	background:#FF5B5B;
 	color:#FFF;
 }
+.admin_widget textarea
+{
+	margin:0 !important;
+	width:98% !important; 
+	padding:1% !important;
+}
 .style_1 label
 {
 	line-height:20px;
