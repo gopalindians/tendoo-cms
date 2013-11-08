@@ -62,7 +62,7 @@ class Admin
 		$this->core->file->css_push('ub.framework');
 		$this->core->file->css_push('hubby_global');
 
-		$this->core->file->js_push('jquery');
+		$this->core->file->js_push('jquery-1.9');
 		$this->core->file->js_push('jquery-ui-1.8');
 		$this->core->file->js_push('dropdown');
 		$this->core->file->js_push('hubby_app');
@@ -285,7 +285,7 @@ class Admin
 				}
 				if(is_array($this->data['interpretation']))
 				{
-					if(array_key_exists('MCO',$this->data['interpretation']))
+					if(array_key_exists('MCO',$this->data['interpretation'])) // MCO : module content only, renvoi uniquement le contenu du module et non les pied et tete de l'espace administration.
 					{
 						if($this->data['interpretation']['MCO'] == TRUE)
 						{
