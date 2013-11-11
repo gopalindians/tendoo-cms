@@ -20,6 +20,7 @@
                             <td>Actif</td>
                             <td>Type</td>
                             <td>Action</td>
+                            <td>Etat</td>
                         </tr>
 					</thead>
                     <tbody>
@@ -36,6 +37,22 @@
                         <td><?php echo ($mod['ACTIVE'] == 'TRUE') ? 'Oui' : 'Non';?></td>
                         <td><?php echo ($mod['TYPE'] == 'GLOBAL') ? 'Globale' : 'Unique';?></td>
                         <td class="action"><a class="delete" href="<?php echo $this->core->url->site_url(array('admin','uninstall','module',$mod['ID']));?>">Desinstaller</a></td>
+                        <td>
+						<?php
+						if($mod['ACTIVE'] == '0')
+						{
+							?>
+                            <a class="delete" href="<?php echo $this->core->url->site_url(array('admin','active','module',$mod['ID']));?>">Activer</a>
+                            <?php
+						}
+						else
+						{
+							?>
+                            <a class="delete" href="<?php echo $this->core->url->site_url(array('admin','unactive','module',$mod['ID']));?>">D&eacute;sactiver</a>
+                            <?php
+						}
+						?>
+                        </td>
                     </tr>
                         <?php
                     }
@@ -51,6 +68,17 @@
             ?>
             		</tbody>
                 </table>
+                <?php 
+				if(is_array($paginate[4]))
+				{
+					foreach($paginate[4] as $p)
+					{
+						?>
+						<a href="<?php echo $p['link'];?>"><div class="<?php echo $p['state'];?>" style="margin:0 3px;padding:3px 5px;float:left"><?php echo $p['text'];?></div></a>
+						<?php
+					}
+				}
+				?>
             </div>
         </div>
     </div>

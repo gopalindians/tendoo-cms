@@ -10,7 +10,6 @@ class Hubby
 	protected	$load;
 	protected	$instance;
 	private 	$db;
-	
 	public function __construct()
 	{
 		$this->core		=	Controller::instance();
@@ -60,9 +59,9 @@ class Hubby
 		  `HUMAN_NAME` varchar(100) NOT NULL,
 		  `AUTHOR` varchar(100) DEFAULT NULL,
 		  `DESCRIPTION` text,
-		  `PRIORITY` int(11) DEFAULT NULL,
+		  `HAS_WIDGET` int(11) DEFAULT NOT NULL,
 		  `TYPE` varchar(50) DEFAULT NULL,
-		  `ACTIVE` varchar(50) DEFAULT NULL,
+		  `ACTIVE` int(11) DEFAULT NULL,
 		  `HUBBY_VERS` varchar(100) NOT NULL,
 		  `ENCRYPTED_DIR` text,
 		  PRIMARY KEY (`ID`)
@@ -326,7 +325,7 @@ class Hubby
 	{
 		$this->core->db->select('*')
 					->from('hubby_options')
-					->where('ID',1);
+					->limit(1,0);
 		$r			=	$this->core->db->get();
 		return $r->result_array();
 	}
@@ -369,10 +368,18 @@ class Hubby
 		$r			=	$this->core->db->get();
 		return $r->result_array();
 	}
+	public function getControllersAttachedToModule($module) // Recupere la page qui embarque le module spécifié.
+	{
+		$this->core->db->select('*')
+					->from('hubby_controllers')->where('PAGE_VISIBLE','TRUE')->where('PAGE_MODULES',$module);
+		$r			=	$this->core->db->get();
+		return $r->result_array();
+	}
 	/// MODULES LOADER
 	public function getGlobalModules() // Récupération de tous les modules de type GLOBAL
 	{
 		$query	=	$this->core->db	->where('TYPE','GLOBAL')
+									->where('ACTIVE','1')
 									->get('hubby_modules');
 		$data	=	$query->result_array();
 		if(count($data) > 0)
@@ -410,7 +417,8 @@ class Hubby
 	{
 		$this->core->db		->select('*')
 							->from('hubby_modules')
-							->where('NAMESPACE',$namespace);
+							->where('NAMESPACE',$namespace)
+							->where('ACTIVE','1');
 		$query				= $this->core->db->get();
 		$data				= $query->result_array();
 		if(count($data) > 0)
@@ -493,28 +501,43 @@ class Hubby
 		{
 			$timestamp				=	gmt_to_local(time(), $timezone, $daylight_saving);
 		}
+		$timeToArray			=	array(
+			'd'=>mdate('%d',$timestamp),
+			'y'=>mdate('%Y',$timestamp),
+			'M'=>mdate('%m',$timestamp),
+			'h'=>mdate('%h',$timestamp),
+			'i'=>mdate('%i',$timestamp),
+			's'=>mdate('%s',$timestamp)
+		);
+		$month					=	array(
+			1	=>	'Janvier',
+			2	=>	'F&eacute;vrier',
+			3	=>	'Mars',
+			4	=>	'Avril',
+			5	=>	'Mai',
+			6	=>	'Juin',
+			7	=>	'Juillet',
+			8	=>	'Ao&ucirc;t',
+			9	=>	'Septembre',
+			10	=>	'Octobre',
+			11	=>	'Novembre',
+			12	=>	'Decembre'
+		);
 		if($toArray	==	true)
 		{
-			return array(
-				'd'=>mdate('%d',$timestamp),
-				'y'=>mdate('%Y',$timestamp),
-				'M'=>mdate('%m',$timestamp),
-				'h'=>mdate('%h',$timestamp),
-				'i'=>mdate('%i',$timestamp),
-				's'=>mdate('%s',$timestamp)
-			);
+			return $timeToArray;
 		}
 		if($timeformat 	==	'type_1')
 		{
-			return mdate('%d %m %Y - %h:%i %s',$timestamp);
+			return mdate('Le %d '.$month[$timeToArray['M']].' %Y - %h:%i:%s',$timestamp);
 		}
 		elseif($timeformat 	==	'type_2')
 		{
-			return mdate('%d/%m/%Y, - %h:%i %s',$timestamp);
+			return mdate('%d/%m/%Y - %h:%i:%s',$timestamp);
 		}
 		elseif($timeformat 	==	'type_3')
 		{
-			return mdate('%Y/%m/%d - %h:%i %s',$timestamp);
+			return mdate('%Y/%m/%d - %h:%i:%s',$timestamp);
 		}
 	}
 	public function arrayToTimestamp($date)
@@ -541,8 +564,8 @@ class Hubby
 	public function datetime()
 	{
 		$this->load->helper('date');
-		$options	=	$this->getOptions();
-		$timezone	=	$options[0]['SITE_TIMEZONE'];
+		$finals	=	$this->getOptions();
+		$timezone	=	$finals[0]['SITE_TIMEZONE'];
 		if($timezone== '')
 		{
 			$timezone 		= 'UTC';

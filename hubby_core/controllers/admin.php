@@ -192,14 +192,20 @@ class Admin
 		if($e == '' || $e == 'main')
 		{
 			$this->data['mod_nbr']		= $this->core->hubby_admin->count_modules();
-			$config['base_url'] 		= $this->core->url->site_url(array('admin','modules',1));
-			$config['total_rows'] 		= $this->data['mod_nbr'];
-			$config['per_page'] 		= 20;
+			$page						=	$a;
+			$this->data['paginate']			=	$this->core->hubby->paginate(
+				10,
+				$this->data['mod_nbr'],
+				1,
+				"bg-color-blue fg-color-white",
+				"bg-color-white fg-color-blue",
+				$page,
+				$this->core->url->site_url(array('admin','modules','main')).'/'
+			); // Pagination
 			
-			$this->pagination->initialize($config);
+			if($this->data['paginate'] === FALSE): $this->core->url->redirect(array('error','code','page404')); endif; // Redirect if page is not valid
 			
-			$this->data['pagination']	=	$this->pagination->create_links();
-			$this->data['modules']		=	$this->core->hubby_admin->get_modules($a-1,$config['per_page']);
+			$this->data['modules']		=	$this->core->hubby_admin->get_modules($this->data['paginate'][1],$this->data['paginate'][2]);
 			
 			$this->core->hubby->setTitle('Gestion des modules - Hubby');	
 			$this->data['notice']		=	$this->notice->push_notice(notice($f));$this->data['lmenu']		=	$this->load->view('admin/left_menu',$this->data,true);
@@ -244,6 +250,40 @@ class Admin
 				$this->core->url->redirect(array('error','code','unknowModule'));
 			}
 		}
+	}
+	public function active($e,$id)
+	{
+		if($e	== 	'module')
+		{
+			$mod	=	$this->core->hubby_admin->getSpeMod($id,TRUE);
+			if($mod)
+			{
+				$this->core->db->where('ID',$id)->update('hubby_modules',array(
+					'ACTIVE'	=>	1
+				));
+				$this->core->url->redirect(array('admin','modules'));
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+	public function unactive($e,$id)
+	{
+		if($e	== 	'module')
+		{
+			$mod	=	$this->core->hubby_admin->getSpeMod($id,TRUE);
+			if($mod)
+			{
+				$this->core->db->where('ID',$id)->update('hubby_modules',array(
+					'ACTIVE'	=>	0
+				));
+				$this->core->url->redirect(array('admin','modules'));
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 	public function open($e='',$a='',$b	= '')
 	{

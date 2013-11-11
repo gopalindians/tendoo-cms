@@ -91,7 +91,7 @@ class hubby_admin
 	{
 		$this->core->db		->select('*')
 							->from('hubby_modules');
-		if($start != NULL && $end != NULL)
+		if(is_numeric($start) && is_numeric($end))
 		{
 			$this->core->db	->limit($end,$start);	
 		}

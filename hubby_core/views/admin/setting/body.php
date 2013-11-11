@@ -37,7 +37,7 @@
                                 </form>
 							</div>
                             <div class="span4 padding10 bg-color-blueDark fg-color-white">
-                                <div class=" ">
+                                <form method="post">
                                     <div class="input-control text">
                                         <h3 class="fg-color-white">D&eacute;finir fuseau horaire</h3>
                                         <select name="newHoraire">
@@ -85,7 +85,7 @@
                                         </select>
                                     </div>
                                     <input type="submit" value="Enregistrer" class="bg-color-red" />
-                                </div>
+                                </form>
                             </div>
                             <div class="span4 padding10 bg-color-greenPureDark fg-color-white">
                                 <form method="post">

@@ -111,7 +111,7 @@ if(!function_exists('notice'))
 		$array['module_alreadyExist']	= '<span class="hubby_notice"><i class="icon-info"></i>  Ce module est d&eacute;j&agrave; install&eacute;.</span>';	
 		$array['unknowModule']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Ce module est introuvable</span>';
 		$array['module_uninstalled']	=	'<span class="hubby_success"><i class="icon-info"></i> Le module &agrave; &eacute;t&eacute; supprim&eacute;.</span>';
-		$array['InvalidPage']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Cette page n\'a pas pu être chargé, car le module d&eacute;finie pour cette page est indisponible ou introuvable.</span>';
+		$array['InvalidPage']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Cette page n\'a pas pu être chargé, car le module d&eacute;finie pour cette page est indisponible ou introuvable. Il est &eacute;galement possible que le module en question n\'a pas &eacute;t&eacute; activ&eacute; depuis l\'espace d\'administration. Vous pouvez g&eacute;rer les modules depuis l\'espace d\'administration.</span>';
 		$array['noControllerDefined']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Impossible d\'acc&eacute;der. Cet &eacute;l&eacute;ment &agrave; express&eacute;ment refus&eacute; un acc&egrave;s direct.</span>';
 		$array['noFileUpdated']		=	'<span class="hubby_error"><i class="icon-blocked"></i> Aucun fichier n\'a été envoy&eacute;, la demande ne peut aboutir.</span>';
 		$array['done']				=	'<span class="hubby_success"><i class="icon-info"></i> L\'opération s\'est correctement exécutée.</span>';
