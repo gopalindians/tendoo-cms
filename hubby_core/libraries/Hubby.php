@@ -59,9 +59,9 @@ class Hubby
 		  `HUMAN_NAME` varchar(100) NOT NULL,
 		  `AUTHOR` varchar(100) DEFAULT NULL,
 		  `DESCRIPTION` text,
-		  `HAS_WIDGET` int(11) DEFAULT NOT NULL,
-		  `TYPE` varchar(50) DEFAULT NULL,
-		  `ACTIVE` int(11) DEFAULT NULL,
+		  `HAS_WIDGET` int(11) NOT NULL,
+		  `TYPE` varchar(50) NOT NULL,
+		  `ACTIVE` int(11) NOT NULL,
 		  `HUBBY_VERS` varchar(100) NOT NULL,
 		  `ENCRYPTED_DIR` text,
 		  PRIMARY KEY (`ID`)
