@@ -18,7 +18,19 @@ $bottom	=	'
                 <a href="'.$this->core->url->site_url(array('index')).'"><i class="icon-arrow-right-3" style="font-size:25px;color:white" title="Retour au site"></i></a>
             </div>
         </div>
-    </body>
+		<script>
+	bubblesMain(new Object({
+		type : \'radial\',
+		revolve : \'center\',
+		minSpeed : 100,
+		maxSpeed : 500,
+		minSize : 50,
+		maxSize : 150,
+		num : 100,
+		colors : new Array("#00A300","#DA532C","#E3A21A","#00ABA9")
+	}));
+	</script>
+</body>
 </html>
 ';
 	if(is_array($body))

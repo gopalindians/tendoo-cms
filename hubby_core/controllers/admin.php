@@ -67,6 +67,7 @@ class Admin
 		$this->core->file->js_push('dropdown');
 		$this->core->file->js_push('hubby_app');
 		$this->core->file->js_push('input-control');
+		$this->core->file->js_push('bubbles');
 	}
 	// Public functions
 	public function index()
